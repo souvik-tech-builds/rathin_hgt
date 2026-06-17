@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HGT Project Showcase</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: linear-gradient(135deg, #ffffff, #7fa0f8, #ffffff);
+    --bg-secondary: #f6f6f4;
+    --text-primary: #1a1a1a;
+    --text-secondary: #555550;
+    --text-tertiary: #999990;
+    --border: rgba(0,0,0,0.12);
+    --border-hover: rgba(0,0,0,0.28);
+    --radius-md: 8px;
+    --radius-lg: 12px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1a1a;
+      --bg-secondary: #242424;
+      --text-primary: #f0f0ee;
+      --text-secondary: #aaaaA0;
+      --text-tertiary: #666660;
+      --border: rgba(255,255,255,0.1);
+      --border-hover: rgba(255,255,255,0.28);
+    }
+    .badge-web { background:#0C447C !important; color:#B5D4F4 !important; }
+    .badge-ai  { background:#3C3489 !important; color:#CECBF6 !important; }
+    .badge-tool{ background:#085041 !important; color:#9FE1CB !important; }
+    .badge-sys { background:#633806 !important; color:#FAC775 !important; }
+    .badge-game{ background:#72243E !important; color:#F4C0D1 !important; }
+    .badge-data{ background:#27500A !important; color:#C0DD97 !important; }
+    .meta-card { background:#2a2a2a !important; }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 10;
+    border-bottom: 0.5px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  .hero-tag {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 0.6rem;
+  }
+  .hero-title {
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+  }
+  @media (max-width: 480px) { .hero-title { font-size: 22px; } }
+  .hero-sub {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  /* FILTER */
+  .filter-bar {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .filter-btn {
+    font-size: 12px;
+    padding: 5px 13px;
+    border-radius: 20px;
+    border: 0.5px solid var(--border-hover);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .filter-btn:hover { background: var(--bg-secondary); }
+  .filter-btn.active {
+    background: linear-gradient(135deg, #eaffb9, #ffffff, #7ff57f);
+    color: var(--bg);
+    border-color: var(--text-primary);
+  }
+
+  .count {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-bottom: 1.25rem;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin-bottom: 3rem;
+  }
+  @media (max-width: 420px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  /* CARD */
+  .card {
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    backdrop-filter: blur(10px);
+    border: 1px solid transparent;
+    background:
+      linear-gradient(#a49eff, #f5f2f2) padding-box,
+      linear-gradient(135deg, #00d4ff, #7b61ff) border-box;
+  }
+  .card:hover { transform: translateY(-8px); }
+  .card:active { transform: translateY(0); }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .card-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .card-title { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .card-desc  { font-size: 12px; color: var(--text-secondary); line-height: 1.65; flex: 1; }
+
+  .card-tech { display: flex; gap: 5px; flex-wrap: wrap; }
+  .tech-tag {
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    color: var(--text-tertiary);
+    border: 0.5px solid var(--border);
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 8px;
+    border-top: 0.5px solid var(--border);
+  }
+  .status { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-tertiary); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .dot-live { background: #1D9E75; }
+  .dot-wip  { background: #EF9F27; }
+  .dot-done { background: #888780; }
+  .view-hint { font-size: 11px; color: var(--text-tertiary); display: flex; align-items: center; gap: 3px; }
+
+  /* BADGES */
+  .badge { font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 500; }
+  .badge-web  { background: #E6F1FB; color: #0C447C; }
+  .badge-ai   { background: #EEEDFE; color: #3C3489; }
+  .badge-automation { background: #E1F5EE; color: #085041; }
+  .badge-software  { background: #FAEEDA; color: #633806; }
+
+  /* DETAIL VIEW */
+  .detail-view { display: none; padding-bottom: 3rem; }
+  .detail-view.open { display: block; }
+  .list-view.hidden { display: none; }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 1.75rem;
+    font-family: inherit;
+    transition: color 0.15s;
+  }
+  .back-btn:hover { color: var(--text-primary); }
+
+  .detail-hero {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .detail-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .detail-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  @media (max-width: 480px) { .detail-title { font-size: 17px; } }
+  .detail-badges { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+
+  .detail-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  /*type ar year box er css*/
+  .meta-card {
+    background: linear-gradient(135deg, #eaffb9, #ffffff, #7ff57f);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+     background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.2);
+
+  transition: all 0.3s ease;
+  }
+  .meta-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 12px 48px rgba(0, 0, 0, 0.3);
+  }
+  .meta-label { font-size: 11px; color: var(--text-tertiary); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .meta-val   { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+
+  .detail-section { margin-bottom: 1.5rem; }
+  
+  /*description, feature ei heading gulor css*/
+  .detail-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: black;
+    margin-bottom: 8px;
+    
+  }
+
+
+  /* description er lekha r css */
+  .detail-text { 
+  font-size: 18px; 
+  color: rgb(0, 0, 0);
+  font-weight: 800;
+  padding: 2%;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.2);
+
+  transition: all 0.3s ease;
+  }
+  .detail-text:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 12px 48px rgba(0, 0, 0, 0.3);
+  }
+
+  .detail-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .detail-tags span {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 0.5px solid var(--border);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- LIST VIEW -->
+  <div class="list-view" id="listView">
+    <button onclick="window.location.href='index.html'", class="back-btn">
+      ← Back
+    </button>
+    <div class="hero">
+      <p class="hero-tag">Portfolio</p>
+      <h1 class="hero-title">HGT Project Showcase</h1>
+      <p class="hero-sub">Web development and computer-related projects.</p>
+    </div>
+
+    <div class="filter-bar" id="filters">
+      <button class="filter-btn active" data-cat="all">All</button>
+      <button class="filter-btn" data-cat="web">Website Development</button>
+      <button class="filter-btn" data-cat="ai">AI / ML</button>
+      <button class="filter-btn" data-cat="automation">Automation</button>
+      <button class="filter-btn" data-cat="software">Software Development</button>
+     
+    </div>
+
+    <p class="count" id="count"></p>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <!-- DETAIL VIEW -->
+  <div class="detail-view" id="detailView">
+    <button class="back-btn" id="backBtn">
+      <i class="ti ti-arrow-left" style="font-size:16px" aria-hidden="true"></i> All Projects
+    </button>
+    <div id="detailContent"></div>
+  </div>
+
+</div>
+
+<script>
+const projects = [
+
+  {
+    id: 1, cat: "web",
+    icon: "ti-world", iconBg: "#E1F5EE", iconColor: "#0F6E56",
+    badge: "web", badgeLabel: "Web",
+    title: "HGT Website",
+    desc: "HGT Website.",
+    detail: "HGT Website is the official website of Harshit Group Of Technology. It showcases the organization's projects, services, team members, work process, blog posts, and community activities. The website serves as a central platform for visitors to explore our work and stay connected with our latest developments.",
+    tech: ["HTML", "CSS", "JAVA-SCRIPT", "BOOTSTRAP"],
+    features: ["ABOUT US", "PROJECT SHOWCASE", "OUR WORK PROCESS", "TEAM", "BLOG", "COMMUNITY"],
+    status: "live", statusLabel: "Live", year: "2026", type: "Frontend"
+  },
+ 
+  {
+    id: 2, cat: "software",
+    icon: "ti-world", iconBg: "#E6F1FB", iconColor: "#185FA5",
+    badge: "software", badgeLabel: "software",
+    title: "HGT Wordpro",
+    desc: "Python based desktop application for word processing with rich text formatting and export options.",
+    detail: "HGT WordPro is a Python-based word processing application designed for creating and editing documents efficiently. It provides a simple and user-friendly interface with text formatting tools, file management features, and document export options.",
+    tech: ["Python", "Tkinter", "AI Tools", "PyInstaller"],
+    features: ["Create and Edit Documents", "Rich Text Formatting", "Save and Open Files", "Font and Style Controls", "Print Support", "Export Options"],
+    status: "done", statusLabel: "Completed", year: "2025", type: "Desktop Application"
+  },
+  
+  {
+    id: 3, cat: "web",
+    icon: "ti-world", iconBg: "#E1F5EE", iconColor: "#0F6E56",
+    badge: "web", badgeLabel: "Web",
+    title: "HGT Community",
+    desc: "HGT Community.",
+    detail: "HGT Community is an online platform where members can connect, share ideas, discuss projects, and collaborate on technology-related activities. It aims to build a strong and supportive community around learning and innovation.",
+    tech: ["Wordpress", "Infinityfree"],
+    features: ["Member Discussions", "Knowledge Sharing", "Event Announcements", "Feedback System", "Post your idea"],
+    status: "live", statusLabel: "Live", year: "2025", type: "Frontend"
+  },
+  
+  {
+    id: 4, cat: "web",
+    icon: "ti-world", iconBg: "#E1F5EE", iconColor: "#0F6E56",
+    badge: "web", badgeLabel: "Web",
+    title: "HCC",
+    desc: "Harshit Creative Corner",
+    detail: "Harshit Creative Corner is a digital platform dedicated to creative works including blogs, poems, stories, ebooks, photography, and artwork. It provides creators with a place to publish and share their content with a wider audience.",
+    tech: ["HTML", "CSS", "JAVA-SCRIPT", "BOOTSTRAP"],
+    features: ["Blog Publishing", "Poetry Collection", "Story Sharing", "E-Book Library", "Photography Showcase"],
+    status: "live", statusLabel: "Live", year: "2026", type: "Frontend"
+  },
+  
+  {
+    id: 5, cat: "web",
+    icon: "ti-world", iconBg: "#E1F5EE", iconColor: "#0F6E56",
+    badge: "web", badgeLabel: "Web",
+    title: "Harshit Blog",
+    desc: "Under HCC",
+    detail: "Harshit Blog is a content-focused platform where articles, tutorials, project updates, technology news, and educational resources are regularly published. The goal is to provide valuable information to readers and learners.",
+    tech: ["Wordpress", "Infinityfree"],
+    features: ["Article Publishing", "Technology Tutorials", "Project Updates", "Category Management", "Search Functionality", "Reader Engagement"],
+    status: "live", statusLabel: "Live", year: "2025", type: "Frontend"
+  },
+  
+  {
+    id: 6, cat: "web",
+    icon: "ti-world", iconBg: "#E1F5EE", iconColor: "#0F6E56",
+    badge: "web", badgeLabel: "Web",
+    title: "HGT Life-Kit 2026",
+    desc: "Under HGT",
+    detail: "HGT Life-Kit 2026 is a comprehensive toolkit designed to help students manage their studies, goals, productivity, and daily activities more effectively. It combines planning resources, study tools, and organizational features in one package.",
+    tech: ["HTML", "CSS", "JAVA-SCRIPT"],
+    features: ["First-aid", "Basic-Safety", "Basic-Rights", "Emergency"],
+    status: "live", statusLabel: "Live", year: "2026", type: "Frontend"
+  },
+
+
+  
+];
+
+const badgeClass = { web:"badge-web", ai:"badge-ai", software:"badge-software", automation:"badge-automation" };
+const dotClass   = { live:"dot-live", wip:"dot-wip", done:"dot-done" };
+let active = "all";
+
+function renderList() {
+  const list = active === "all" ? projects : projects.filter(p => p.cat === active);
+  document.getElementById("count").textContent = list.length + " Projects";
+  document.getElementById("grid").innerHTML = list.map(p => `
+    <div class="card" onclick="openDetail(${p.id})" role="button" tabindex="0" aria-label="${p.title} Details">
+      <div class="card-top">
+        <div class="card-icon" style="background:${p.iconBg}">
+          <i class="ti ${p.icon}" style="color:${p.iconColor};font-size:18px" aria-hidden="true"></i>
+        </div>
+        <span class="badge ${badgeClass[p.badge]}">${p.badgeLabel}</span>
+      </div>
+      <div class="card-title">${p.title}</div>
+      <div class="card-desc">${p.desc}</div>
+      <div class="card-tech">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join("")}</div>
+      <div class="card-footer">
+        <span class="status"><span class="dot ${dotClass[p.status]}"></span>${p.statusLabel}</span>
+        <span class="view-hint"> Details <i class="ti ti-arrow-right" style="font-size:11px" aria-hidden="true"></i></span>
+      </div>
+    </div>
+  `).join("");
+
+  document.querySelectorAll(".card").forEach(card => {
+    card.addEventListener("keydown", e => { if (e.key === "Enter") card.click(); });
+  });
+}
+
+function openDetail(id) {
+  const p = projects.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById("listView").classList.add("hidden");
+  document.getElementById("detailView").classList.add("open");
+  document.getElementById("detailContent").innerHTML = `
+    <div class="detail-hero">
+      <div class="detail-icon" style="background:${p.iconBg}">
+        <i class="ti ${p.icon}" style="color:${p.iconColor};font-size:24px" aria-hidden="true"></i>
+      </div>
+      <div>
+        <div class="detail-title">${p.title}</div>
+        <div class="detail-badges">
+          <span class="badge ${badgeClass[p.badge]}">${p.badgeLabel}</span>
+          <span class="status"><span class="dot ${dotClass[p.status]}"></span>${p.statusLabel}</span>
+        </div>
+      </div>
+    </div>
+    <div class="detail-meta">
+      <div class="meta-card"><div class="meta-label">Type</div><div class="meta-val">${p.type}</div></div>
+      <div class="meta-card"><div class="meta-label">Year</div><div class="meta-val">${p.year}</div></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-label"> Description </div>
+      <div class="detail-text">${p.detail}</div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-label">Main features</div>
+      <div class="detail-tags">${p.features.map(f => `<span>${f}</span>`).join("")}</div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-label">Technology</div>
+      <div class="detail-tags">${p.tech.map(t => `<span>${t}</span>`).join("")}</div>
+    </div>
+  `;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.getElementById("backBtn").addEventListener("click", () => {
+  document.getElementById("detailView").classList.remove("open");
+  document.getElementById("listView").classList.remove("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+document.getElementById("filters").addEventListener("click", e => {
+  const btn = e.target.closest(".filter-btn");
+  if (!btn) return;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  active = btn.dataset.cat;
+  renderList();
+});
+
+renderList();
+</script>
+</body>
+</html>
